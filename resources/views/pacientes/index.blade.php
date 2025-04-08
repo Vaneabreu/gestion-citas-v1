@@ -89,20 +89,16 @@
                                             <tr @class(['bg-pink' => $paciente->genero == 'Femenino', 'bg-blue' => $paciente->genero == 'Masculino'])>
                                                 <td>{{ $paciente->nombre }}</td>
                                                 <td>{{ $paciente->apellido }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->format('d/m/Y') }}
-                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->format('d/m/Y') }}</td>
                                                 <td>{{ $paciente->genero }}</td>
                                                 <td>{{ $paciente->direccion }}</td>
                                                 <td>{{ $paciente->telefono }}</td>
                                                 <td>
-                                                    <a href="{{ route('pacientes.edit', $paciente->id) }}"
-                                                        class="btn btn-warning btn-sm">Editar</a>
-                                                    <form action="{{ route('pacientes.destroy', $paciente->id) }}"
-                                                        method="POST" style="display:inline;">
+                                                    <a href="{{ route('pacientes.edit', $paciente->id_pacientes) }}" class="btn btn-warning btn-sm">Editar</a>
+                                                    <form action="{{ route('pacientes.destroy', $paciente->id_pacientes) }}" method="POST" style="display:inline;">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
-                                                            class="btn btn-danger btn-sm">Eliminar</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                                                     </form>
                                                 </td>
                                             </tr>

@@ -41,74 +41,53 @@
                                     <form method="POST" action="{{ route('pacientes.store') }}">
                                         @csrf
                                         <div class="row">
-                                            <!-- Nombre Completo -->
+                                            <!-- Nombre -->
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="nombre" class="form-label">Nombre</label>
-                                                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required placeholder="Nombre">
+                                                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre') }}" required maxlength="255" placeholder="Nombre">
                                                     @if ($errors->has('nombre'))
                                                         <div class="alert alert-danger">{{ $errors->first('nombre') }}</div>
                                                     @endif
                                                 </div>
                                             </div>
 
-                                            <!-- Apellido -->
+                                            <!-- Documento -->
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="apellido" class="form-label">Apellido</label>
-                                                    <input type="text" class="form-control" id="apellido" name="apellido" value="{{ old('apellido') }}" required placeholder="Apellido">
-                                                    @if ($errors->has('apellido'))
-                                                        <div class="alert alert-danger">{{ $errors->first('apellido') }}</div>
+                                                    <label for="documento" class="form-label">Documento</label>
+                                                    <input type="text" class="form-control" id="documento" name="documento" value="{{ old('documento') }}" required maxlength="50" placeholder="Documento">
+                                                    @if ($errors->has('documento'))
+                                                        <div class="alert alert-danger">{{ $errors->first('documento') }}</div>
                                                     @endif
                                                 </div>
                                             </div>
 
-                                            <!-- Fecha de Nacimiento -->
+                                            <!-- Sexo -->
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
-                                                    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value="{{ old('fecha_nacimiento') }}" required>
-                                                    @if ($errors->has('fecha_nacimiento'))
-                                                        <div class="alert alert-danger">{{ $errors->first('fecha_nacimiento') }}</div>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <!-- Género -->
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="genero" class="form-label">Género</label>
-                                                    <select class="form-control" id="genero" name="genero" required>
-                                                        <option value="">Seleccionar Género</option>
-                                                        <option value="Masculino" {{ old('genero') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
-                                                        <option value="Femenino" {{ old('genero') == 'Femenino' ? 'selected' : '' }}>Femenino</option>
-                                                        <option value="Otro" {{ old('genero') == 'Otro' ? 'selected' : '' }}>Otro</option>
+                                                    <label for="sexo" class="form-label">Sexo</label>
+                                                    <select class="form-control" id="sexo" name="sexo" required>
+                                                        <option value="">Seleccionar Sexo</option>
+                                                        <option value="M" {{ old('sexo') == 'M' ? 'selected' : '' }}>Masculino</option>
+                                                        <option value="F" {{ old('sexo') == 'F' ? 'selected' : '' }}>Femenino</option>
                                                     </select>
-                                                    @if ($errors->has('genero'))
-                                                        <div class="alert alert-danger">{{ $errors->first('genero') }}</div>
+                                                    @if ($errors->has('sexo'))
+                                                        <div class="alert alert-danger">
+                                                            {{ $errors->first('sexo') }}
+                                                            @if (!in_array(old('sexo'), ['M', 'F']))
+                                                                <div>El valor seleccionado no es válido. Por favor, selecciona "Masculino" o "Femenino".</div>
+                                                            @endif
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
 
-                                            <!-- Correo Electrónico -->
+                                            <!-- WhatsApp -->
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="email" class="form-label">Correo Electrónico</label>
-                                                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required placeholder="Correo electrónico">
-                                                    @if ($errors->has('email'))
-                                                        <div class="alert alert-danger">{{ $errors->first('email') }}</div>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <!-- Teléfono -->
-                                            <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <label for="telefono" class="form-label">Teléfono</label>
-                                                    <input type="text" class="form-control" id="telefono" name="telefono" value="{{ old('telefono') }}" required placeholder="Número de teléfono">
-                                                    @if ($errors->has('telefono'))
-                                                        <div class="alert alert-danger">{{ $errors->first('telefono') }}</div>
-                                                    @endif
+                                                    <label for="whatsapp" class="form-label">WhatsApp</label>
+                                                    <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="{{ old('whatsapp') }}" maxlength="20" placeholder="WhatsApp">
                                                 </div>
                                             </div>
 
@@ -116,10 +95,49 @@
                                             <div class="col-lg-12">
                                                 <div class="form-group">
                                                     <label for="direccion" class="form-label">Dirección</label>
-                                                    <input type="text" class="form-control" id="direccion" name="direccion" value="{{ old('direccion') }}" placeholder="Dirección del paciente">
+                                                    <input type="text" class="form-control" id="direccion" name="direccion" value="{{ old('direccion') }}" maxlength="255" placeholder="Dirección del paciente">
                                                 </div>
                                             </div>
 
+                                            <!-- ID Aseguradoras -->
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="id_aseguradoras" class="form-label">Aseguradora</label>
+                                                    <select class="form-control" id="id_aseguradoras" name="id_aseguradoras">
+                                                        <option value="">Seleccionar Aseguradora</option>
+                                                        @foreach ($aseguradoras as $aseguradora)
+                                                            <option value="{{ $aseguradora->id_aseguradoras }}" {{ old('id_aseguradoras') == $aseguradora->id_aseguradoras ? 'selected' : '' }}>
+                                                                {{ $aseguradora->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @if ($errors->has('id_aseguradoras'))
+                                                        <div class="alert alert-danger">{{ $errors->first('id_aseguradoras') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <!-- No. Seguro -->
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="no_seguro" class="form-label">No. Seguro</label>
+                                                    <input type="text" class="form-control" id="no_seguro" name="no_seguro" value="{{ old('no_seguro') }}" maxlength="50" placeholder="No. Seguro">
+                                                </div>
+                                            </div>
+
+                                            <!-- Estado -->
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="estado" class="form-label">Estado</label>
+                                                    <select class="form-control" id="estado" name="estado" required>
+                                                        <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Activo</option>
+                                                        <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Inactivo</option>
+                                                    </select>
+                                                    @if ($errors->has('estado'))
+                                                        <div class="alert alert-danger">{{ $errors->first('estado') }}</div>
+                                                    @endif
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="d-flex justify-content-end mt-4">

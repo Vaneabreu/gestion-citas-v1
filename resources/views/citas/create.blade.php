@@ -100,6 +100,12 @@
                                         required>
                                 </div>
 
+                                <!-- WhatsApp -->
+                                <div class="form-group">
+                                    <label for="whatsapp">WhatsApp</label>
+                                    <input type="text" name="whatsapp" id="whatsapp" class="form-control" value="{{ old('whatsapp') }}">
+                                </div>
+
                                 <button type="submit" class="btn btn-primary">Guardar Cita</button>
                             </form>
 

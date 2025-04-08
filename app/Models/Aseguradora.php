@@ -11,4 +11,9 @@ class Aseguradora extends Model
     protected $table = 'aseguradoras';
     protected $primaryKey = 'id_aseguradoras';
     protected $fillable = ['descripcion', 'estado'];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class, 'id_aseguradoras', 'id_aseguradoras');
+    }
 }

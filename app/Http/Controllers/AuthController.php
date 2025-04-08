@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
         
-            return redirect()->intended('/index');
+            return redirect()->intended('/citas');
         }
 
         return back()->withErrors([

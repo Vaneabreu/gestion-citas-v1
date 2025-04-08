@@ -24,6 +24,8 @@ class Cita extends Model
         'hora_salida',
         'honorarios',
         'estado',
+        'whatsapp',
+        
     ];
 
     // Relationship with Doctor

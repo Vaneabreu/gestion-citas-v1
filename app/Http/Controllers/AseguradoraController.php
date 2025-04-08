@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class AseguradoraController extends Controller
 {
     public function index() {
-        return Aseguradora::all();
+        $aseguradoras = Aseguradora::all(); // Fetch all aseguradoras
+        return view('aseguradoras.index', compact('aseguradoras')); // Pass to the view
     }
 
     public function store(Request $request) {
@@ -27,5 +28,11 @@ class AseguradoraController extends Controller
     public function destroy($id) {
         Aseguradora::destroy($id);
         return response()->noContent();
+    }
+
+    public function create()
+    {
+        $aseguradoras = Aseguradora::all(); // Fetch all aseguradoras
+        return view('register-paciente', compact('aseguradoras'));
     }
 }

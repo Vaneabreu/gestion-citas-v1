@@ -18,17 +18,18 @@ class PacienteController extends Controller
     {
         $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'fecha_nacimiento' => 'required|date',
-            'genero' => 'required|string',
-            'email' => 'required|email|unique:pacientes,email',
-            'telefono' => 'required|string|max:15',
+            'documento' => 'required|string|max:50',
+            'sexo' => 'required|string|max:10',
+            'whatsapp' => 'nullable|string|max:20',
             'direccion' => 'nullable|string|max:255',
+            'id_aseguradoras' => 'nullable|integer',
+            'no_seguro' => 'nullable|string|max:50',
+            'estado' => 'required|boolean',
         ]);
 
-        $paciente = Paciente::create($validatedData);
+        Paciente::create($validatedData);
 
-        return redirect()->route('pacientes.index')->with('success', 'Paciente registrado exitosamente.');
+        return redirect()->route('pacientes.index')->with('success', 'Paciente creado exitosamente.');
     }
 
     public function index()
@@ -37,33 +38,34 @@ class PacienteController extends Controller
         return view('pacientes.index', compact('pacientes'));
     }
 
-    public function edit($id)
+    public function edit($id_pacientes)
     {
-        $paciente = Paciente::findOrFail($id);
+        $paciente = Paciente::where('id_pacientes', $id_pacientes)->firstOrFail();
         return view('pacientes.edit', compact('paciente'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $paciente_id)
     {
-        $paciente = Paciente::findOrFail($id);
-
-        $request->validate([
+        $validatedData = $request->validate([
             'nombre' => 'required|string|max:255',
-            'apellido' => 'required|string|max:255',
-            'fecha_nacimiento' => 'required|date',
-            'genero' => 'required|string',
-            'direccion' => 'required|string',
-            'telefono' => 'required|string',
+            'documento' => 'required|string|max:50',
+            'sexo' => 'required|string|max:10',
+            'whatsapp' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255',
+            'id_aseguradoras' => 'nullable|integer',
+            'no_seguro' => 'nullable|string|max:50',
+            'estado' => 'required|boolean',
         ]);
 
-        $paciente->update($request->all());
+        $paciente = Paciente::findOrFail($paciente_id);
+        $paciente->update($validatedData);
 
-        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente');
+        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado exitosamente.');
     }
 
-    public function destroy($id)
+    public function destroy($id_pacientes)
     {
-        $paciente = Paciente::findOrFail($id);
+        $paciente = Paciente::where('id_pacientes', $id_pacientes)->firstOrFail();
         $paciente->delete();
 
         return redirect()->route('pacientes.index')->with('success', 'Paciente marcado como eliminado correctamente.');
